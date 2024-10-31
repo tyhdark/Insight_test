@@ -59,6 +59,13 @@ class BaseApi(object):
         return response
 
     def idcard_recog_server(self, path, baseurl, port, image_json):
+        """
+        :param path: 需要验证的身份证图片路径
+        :param baseurl: 请求接口的地址
+        :param port: 请求接口的端口
+        :param image_json: 需要验证身份证图片对应的json
+        :return:
+        """
         # 102. 接口名称:身份证识别(json配置版)
         files_detect = {"image": tools.Tools.image_file(path)}
 
@@ -98,20 +105,3 @@ class BaseApi(object):
         response = requests.post(f"{baseurl}:{port}/api/passport_recog_server", files=files_detect, data=data).json()
         return response
 
-
-if __name__ == '__main__':
-    test_url = r"\\192.168.0.9\share\测试使用\卡证相关\身份证识别\1-248\1-149\10)Hong Kong\testa.jpg"
-    baseurl = 'http://192.168.0.9'
-    image_json = {
-        "country": "EH",
-        "type": "id",
-        "language": "zh",
-        "label": [
-            {"coordinate": [162, 100, 224, 113], "name": "name"},
-            {"coordinate": [59, 266, 130, 279], "name": "idcard"}
-        ],
-        "imageSize": [450, 300]
-    }
-    port2 = 5000
-    base_api = BaseApi()
-    logger.info(base_api.idcard_recog_server(test_url, baseurl, port2, image_json))

@@ -64,7 +64,3 @@ class Tools:
             except:
                 logger.info(f"json_path={file_path},json文件异常")
                 return None
-
-
-if __name__ == '__main__':
-    1
